@@ -63,6 +63,10 @@ class ForceAtlas2:
                  strongGravityMode=False,
                  gravity=1.0,
 
+                 # Speed
+                 speed = 1.0,
+                 speedEfficiency = 1.0,
+
                  # Log
                  verbose=True):
         assert linLogMode == adjustSizes == multiThreaded == False, "You selected a feature that has not been implemented yet..."
@@ -77,6 +81,8 @@ class ForceAtlas2:
         self.strongGravityMode = strongGravityMode
         self.gravity = gravity
         self.verbose = verbose
+        self.speed = speed
+        self.speedEfficiency = speedEfficiency
 
     def init(self,
              G,  # a graph in 2D numpy ndarray format (or) scipy sparse matrix format
@@ -157,8 +163,9 @@ class ForceAtlas2:
         # speed and speedEfficiency describe a scaling factor of dx and dy
         # before x and y are adjusted.  These are modified as the
         # algorithm runs to help ensure convergence.
-        speed = 1.0
-        speedEfficiency = 1.0
+        speed = self.speed
+        speedEfficiency = self.speedEfficiency
+        
         nodes, edges = self.init(G, pos)
         outboundAttCompensation = 1.0
         if self.outboundAttractionDistribution:
